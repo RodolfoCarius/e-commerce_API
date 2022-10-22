@@ -13,6 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCliente")
 @Entity
 @Table(name="cliente")
 public class Cliente {
@@ -37,12 +41,22 @@ public class Cliente {
 	@Column(name = "datanascimento")
 	private Instant dataNascimento;
 	
-	@OneToOne
-	@JoinColumn(name="idendereco", referencedColumnName= "idendereco")
-	private Endereco endereco;
+	@OneToMany(mappedBy = "cliente")
+	private List <Pedido> pedidos;
 	
-	@OneToMany(mappedBy ="cliente")
-	private List<Pedido> pedidos;
+	@OneToOne
+	@JoinColumn(name = "idendereco", referencedColumnName = "idendereco")
+	private Endereco endereco;
+
+	
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	public Integer getIdCliente() {
 		return idCliente;
@@ -98,14 +112,6 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Pedido> getPedido() {
-		return pedidos;
-	}
-
-	public void setPedido(List<Pedido> pedido) {
-		this.pedidos = pedido;
 	}
 
 	

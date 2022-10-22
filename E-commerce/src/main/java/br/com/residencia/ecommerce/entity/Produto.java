@@ -14,6 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto")
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -42,14 +46,26 @@ public class Produto {
 	private String Imagem;
 	
 	@ManyToOne
-	@JoinColumn(name ="idcategooria", referencedColumnName ="idcategoria")
+	@JoinColumn(name = "idcategoria", referencedColumnName = "idcategoria")
 	private Categoria categoria;
-	
-	@OneToMany(mappedBy = "produto")
-	private List<ItemPedido> itensPedido;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "produto")
+	private List<ItemPedido> itempedido;
+	
+	
+
+	
 	public Integer getIdProduto() {
 		return idProduto;
+	}
+
+	public List<ItemPedido> getItempedido() {
+		return itempedido;
+	}
+
+	public void setItempedido(List<ItemPedido> itempedido) {
+		this.itempedido = itempedido;
 	}
 
 	public void setIdProduto(Integer idProduto) {
@@ -104,7 +120,6 @@ public class Produto {
 		Imagem = imagem;
 	}
 
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -113,15 +128,6 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public List<ItemPedido> getItensPedido() {
-		return itensPedido;
-	}
-
-	public void setItensPedido(List<ItemPedido> itensPedido) {
-		this.itensPedido = itensPedido;
-	}
-
-	
 	
 }
 

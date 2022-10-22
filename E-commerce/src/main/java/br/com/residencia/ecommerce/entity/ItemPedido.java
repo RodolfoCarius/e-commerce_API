@@ -2,15 +2,21 @@ package br.com.residencia.ecommerce.entity;
 
 import java.math.BigDecimal;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
+import javax.persistence.ManyToOne;
+
+import javax.persistence.Table;
+//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idItemPedido")
 @Entity
 @Table(name="itempedido")
 public class ItemPedido {
@@ -36,12 +42,21 @@ public class ItemPedido {
 	private BigDecimal valorLiquido;
 	
 	@ManyToOne
+	@JoinColumn(name = "idproduto", referencedColumnName = "idproduto")
+	private Produto produto;
+	
+	@ManyToOne
 	@JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
 	private Pedido pedido;
 	
-	@ManyToOne
-	@JoinColumn(name = "idproduto", referencedColumnName = "idprduto")
-	private Produto produto;
+	
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -91,22 +106,15 @@ public class ItemPedido {
 		this.valorLiquido = valorLiquido;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
 	public Produto getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public Pedido getPedido() {
+		return pedido;
 	}
 
+	
 	
 	
 }

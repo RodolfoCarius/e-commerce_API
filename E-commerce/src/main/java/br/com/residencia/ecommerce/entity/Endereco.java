@@ -1,5 +1,6 @@
 package br.com.residencia.ecommerce.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEndereco")
 @Entity
 @Table(name="endereco")
 public class Endereco {
@@ -38,8 +42,17 @@ public class Endereco {
 	@Column(name = "uf")
 	private String uf;
 	
-	@OneToOne(mappedBy ="endereco")
+	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public Integer getIdEndereco() {
 		return idEndereco;
@@ -72,7 +85,6 @@ public class Endereco {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-
 	public String getCidade() {
 		return cidade;
 	}
@@ -104,14 +116,6 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-
+	
+	
 }

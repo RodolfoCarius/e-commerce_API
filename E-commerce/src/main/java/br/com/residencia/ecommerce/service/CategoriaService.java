@@ -10,29 +10,33 @@ import br.com.residencia.ecommerce.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {
-	
 	@Autowired
 	CategoriaRepository categoriaRepository;
 
-	public Categoria getCategoriaById(Integer id) {
-		return categoriaRepository.findById(id).orElse(null);
+	public List<Categoria> getAllCategorias(){
+		return categoriaRepository.findAll();	
 	}
 	
-	public List<Categoria> getAllCategorias(){
-		return categoriaRepository.findAll();
+	public Categoria getCategoriaById(Integer id) {
+		//return categoriaRepository.findById(id).orElse(null);
+		return categoriaRepository.findById(id).get();
+		
 	}
 	
 	public Categoria saveCategoria(Categoria categoria) {
 		return categoriaRepository.save(categoria);
 	}
 	
-	public Categoria updateCategoria(Integer id, Categoria categoria) {
+	public Categoria updateCategoria(Categoria categoria,Integer id) {
 		Categoria categoriaExistenteNoBanco = getCategoriaById(id);
 		
+		if(categoriaExistenteNoBanco!= null) {
+		//categoriaExistenteNoBanco.setIdCategoria(categoriaExistenteNoBanco.getIdCategoria());
 		categoriaExistenteNoBanco.setNome(categoria.getNome());
 		categoriaExistenteNoBanco.setDescricao(categoria.getDescricao());
-		
+		}
 		return categoriaRepository.save(categoriaExistenteNoBanco);
+		
 	}
 	
 	public Categoria deleteCategoria(Integer id) {
@@ -40,3 +44,4 @@ public class CategoriaService {
 		return getCategoriaById(id);
 	}
 }
+

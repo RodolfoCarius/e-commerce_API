@@ -4,15 +4,23 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido")
 
 @Entity
 @Table(name = "pedido")
@@ -41,9 +49,19 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
 	private Cliente cliente;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itempedido;
+	
+
+	public List<ItemPedido> getItempedido() {
+		return itempedido;
+	}
+
+	public void setItempedido(List<ItemPedido> itempedido) {
+		this.itempedido = itempedido;
+	}
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -99,14 +117,6 @@ public class Pedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-
-	public List<ItemPedido> getItempedido() {
-		return itempedido;
-	}
-
-	public void setItempedido(List<ItemPedido> itempedido) {
-		this.itempedido = itempedido;
 	}
 
 	

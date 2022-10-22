@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.residencia.ecommerce.dto.ProdutoDTO;
 import br.com.residencia.ecommerce.entity.Produto;
+import br.com.residencia.ecommerce.exception.NoSuchElementFoundException;
 import br.com.residencia.ecommerce.service.ProdutoService;
 
 @RestController
@@ -23,32 +25,81 @@ public class ProdutoController {
 	@Autowired
 	ProdutoService produtoService;
 	
-	@GetMapping()
-	public ResponseEntity <List<Produto>> GetAllProdutos(){
-		return new ResponseEntity <>(produtoService.getAllProdutos(), HttpStatus.OK);
+	@GetMapping
+	public ResponseEntity<List<Produto>> getAllProdutos(){
+		return new ResponseEntity<>(produtoService.getAllProdutos(),
+				HttpStatus.OK);
 	}
 	
+	@GetMapping("/dto")
+	public ResponseEntity<List<ProdutoDTO>> getAllProdutosDTO(){
+		return new ResponseEntity<>(produtoService.getAllProdutosDTO(),
+				HttpStatus.OK);
+	}
+	
+	/*
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> GetProdutoById(@PathVariable Integer id) {
+	public ResponseEntity<Produto> getProdutoById(@PathVariable Integer id) {
 		Produto produto = produtoService.getProdutoById(id);
 		if(null != produto)
-			return new ResponseEntity<>(produto , HttpStatus.OK);
+			return new ResponseEntity<>(produto,
+					HttpStatus.OK);
 		else
-			return new ResponseEntity<>(produto , HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(produto,
+					HttpStatus.NOT_FOUND);
 	}
 	
-	@PostMapping()
-	public ResponseEntity <Produto> saveProduto(@RequestBody Produto produto){
-		return new ResponseEntity<>(produtoService.saveProduto(produto) , HttpStatus.CREATED);
+	*/
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Produto> getProdutoById(@PathVariable Integer id) {
+		Produto produto = new Produto();
+		
+		try {
+			produto = produtoService.getProdutoById(id);
+			return new ResponseEntity<>(produto, HttpStatus.OK);			
+		}catch(Exception ex) {
+			throw new NoSuchElementFoundException("Não foi encontrado resultado com o id " + id);
+		}
 	}
 	
-	@PutMapping("{/id}")
-	public ResponseEntity <Produto> updateProduto(@PathVariable Integer id ,  @RequestBody Produto produto ){
-		return new ResponseEntity<>(produtoService.updateProduto(id, produto) , HttpStatus.OK);
+	@PostMapping
+	public ResponseEntity<Produto> saveProduto(@RequestBody Produto produto) {
+		return new ResponseEntity<>(produtoService.saveProduto(produto),
+				HttpStatus.CREATED);
+	}
+		
+	@PostMapping("/dto")
+	public ResponseEntity<ProdutoDTO> saveProdutoDTO(@RequestBody ProdutoDTO produtoDTO) {
+		return new ResponseEntity<>(produtoService.saveProdutoDTO(produtoDTO),
+				HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("{/id}")
-	public ResponseEntity <Produto> deleteProduto(@PathVariable Integer id){
-		return new ResponseEntity<>(produtoService.deleteProduto(id) , HttpStatus.OK);
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Produto> updateProduto(@RequestBody Produto produto, 
+			@PathVariable Integer id){
+		return new ResponseEntity<>(produtoService.updateProduto(produto, id),
+				HttpStatus.OK);
 	}
+	
+	@PutMapping("/dto/{id}")
+	public ResponseEntity<ProdutoDTO> updateProdutoDTO(@RequestBody ProdutoDTO produtoDTO, 
+			@PathVariable Integer id){
+		return new ResponseEntity<>(produtoService.updateProdutoDTO(produtoDTO, id),
+				HttpStatus.OK);
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Produto> deleteProduto(@PathVariable Integer id) {
+		Produto produto = produtoService.getProdutoById(id);
+		if(null == produto)
+			return new ResponseEntity<>(produto,
+					HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>(produtoService.deleteProduto(id),
+					HttpStatus.OK);
+	}
+
 }
