@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +26,9 @@ public class Endereco {
 	@Column(name = "bairro")
 	private String bairro;
 	
+	@Column(name = "cidade")
+	private String cidade;
+	
 	@Column(name = "complemento")
 	private String complemento;
 	
@@ -33,20 +37,9 @@ public class Endereco {
 	
 	@Column(name = "uf")
 	private String uf;
-
-	public Endereco() {
-	}
-
-	public Endereco(Integer idEndereco, String cep, String rua, String bairro, String complemento, Integer numero,
-			String uf) {
-		this.idEndereco = idEndereco;
-		this.cep = cep;
-		this.rua = rua;
-		this.bairro = bairro;
-		this.complemento = complemento;
-		this.numero = numero;
-		this.uf = uf;
-	}
+	
+	@OneToOne(mappedBy ="endereco")
+	private Cliente cliente;
 
 	public Integer getIdEndereco() {
 		return idEndereco;
@@ -80,6 +73,14 @@ public class Endereco {
 		this.bairro = bairro;
 	}
 
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
 	public String getComplemento() {
 		return complemento;
 	}
@@ -103,6 +104,14 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
-	
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
 }

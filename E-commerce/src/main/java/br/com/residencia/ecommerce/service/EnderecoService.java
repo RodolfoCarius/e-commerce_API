@@ -32,6 +32,7 @@ public class EnderecoService {
 		enderecoExistenteNoBanco.setBairro(endereco.getBairro());
 		enderecoExistenteNoBanco.setCep(endereco.getCep());
 		enderecoExistenteNoBanco.setComplemento(endereco.getComplemento());
+		enderecoExistenteNoBanco.setCidade(endereco.getCidade());
 		enderecoExistenteNoBanco.setNumero(endereco.getNumero());
 		enderecoExistenteNoBanco.setRua(endereco.getRua());
 		enderecoExistenteNoBanco.setUf(endereco.getUf());

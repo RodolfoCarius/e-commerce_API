@@ -1,12 +1,17 @@
 package br.com.residencia.ecommerce.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="categoria")
 public class Categoria {
 
 	@Id
@@ -20,14 +25,8 @@ public class Categoria {
 	@Column(name = "descricao")
 	private String descricao;
 
-	public Categoria() {
-	}
-
-	public Categoria(Integer idCategoria, String nome, String descricao) {
-		this.idCategoria = idCategoria;
-		this.nome = nome;
-		this.descricao = descricao;
-	}
+	@OneToMany(mappedBy ="categoria")
+	private List<Produto> produtos;
 
 	public Integer getIdCategoria() {
 		return idCategoria;
@@ -51,6 +50,14 @@ public class Categoria {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	

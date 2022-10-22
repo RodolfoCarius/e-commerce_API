@@ -2,17 +2,20 @@ package br.com.residencia.ecommerce.entity;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="produto")
+@Table(name = "produto")
 public class Produto {
 
 	@Id
@@ -38,23 +41,12 @@ public class Produto {
 	@Column(name = "imagem")
 	private String Imagem;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name ="idcategooria", referencedColumnName ="idcategoria")
 	private Categoria categoria;
-
-	public Produto() {
-	}
-
-	public Produto(Integer idProduto, String nome, String descricao, Integer qtdEstoque, Instant dataCadastro,
-			BigDecimal valorUnitario, String imagem, Categoria categoria) {
-		this.idProduto = idProduto;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.qtdEstoque = qtdEstoque;
-		this.dataCadastro = dataCadastro;
-		this.valorUnitario = valorUnitario;
-		this.Imagem = imagem;
-		this.categoria = categoria;
-	}
+	
+	@OneToMany(mappedBy = "produto")
+	private List<ItemPedido> itensPedido;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -112,6 +104,7 @@ public class Produto {
 		Imagem = imagem;
 	}
 
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -120,6 +113,15 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
+	public List<ItemPedido> getItensPedido() {
+		return itensPedido;
+	}
+
+	public void setItensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
+
+	
 	
 }
 

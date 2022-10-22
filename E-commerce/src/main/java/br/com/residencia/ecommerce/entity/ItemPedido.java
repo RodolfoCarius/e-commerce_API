@@ -8,12 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="itempedido")
-public class Item_pedido {
+public class ItemPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,28 +35,13 @@ public class Item_pedido {
 	@Column(name = "valorliquido")
 	private BigDecimal valorLiquido;
 	
-	@ManyToMany
+	@ManyToOne
 	@JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
 	private Pedido pedido;
 	
-	@ManyToMany
+	@ManyToOne
 	@JoinColumn(name = "idproduto", referencedColumnName = "idprduto")
 	private Produto produto;
-	
-	public Item_pedido() {
-	}
-
-	public Item_pedido(Integer idItemPedido, Integer quantidade, BigDecimal precoVenda, Integer percentualDesconto,
-			BigDecimal valorBruto, BigDecimal valorLiquido, Pedido pedido, Produto produto) {
-		this.idItemPedido = idItemPedido;
-		this.quantidade = quantidade;
-		this.precoVenda = precoVenda;
-		this.percentualDesconto = percentualDesconto;
-		this.valorBruto = valorBruto;
-		this.valorLiquido = valorLiquido;
-		this.pedido = pedido;
-		this.produto = produto;
-	}
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -121,7 +106,7 @@ public class Item_pedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
+
 	
 	
 }

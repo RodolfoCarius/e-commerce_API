@@ -1,12 +1,15 @@
 package br.com.residencia.ecommerce.entity;
 
 import java.time.Instant;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,22 +38,11 @@ public class Cliente {
 	private Instant dataNascimento;
 	
 	@OneToOne
+	@JoinColumn(name="idendereco", referencedColumnName= "idendereco")
 	private Endereco endereco;
-
-	public Cliente() {
-	}
-
-	public Cliente(Integer idCliente, String email, String nomeCompleto, String cpf, String telefone,
-			Instant dataNascimento, Endereco endereco) {
-		super();
-		this.idCliente = idCliente;
-		this.email = email;
-		this.nomeCompleto = nomeCompleto;
-		this.cpf = cpf;
-		this.telefone = telefone;
-		this.dataNascimento = dataNascimento;
-		this.endereco = endereco;
-	}
+	
+	@OneToMany(mappedBy ="cliente")
+	private List<Pedido> pedidos;
 
 	public Integer getIdCliente() {
 		return idCliente;
@@ -106,6 +98,14 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Pedido> getPedido() {
+		return pedidos;
+	}
+
+	public void setPedido(List<Pedido> pedido) {
+		this.pedidos = pedido;
 	}
 
 	

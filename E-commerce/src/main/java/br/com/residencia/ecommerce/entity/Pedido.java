@@ -2,6 +2,7 @@ package br.com.residencia.ecommerce.entity;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="pedido")
+@Table(name = "pedido")
 public class Pedido {
 
 	@Id
@@ -31,7 +33,7 @@ public class Pedido {
 	private Instant dataEnvio;
 	
 	@Column(name = "status")
-	private Integer status;
+	private String status;
 	
 	@Column(name = "valortotal")
 	private BigDecimal valorTotal;
@@ -39,20 +41,9 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
 	private Cliente cliente;
-
-	public Pedido() {
-	}
-
-	public Pedido(Integer idPedido, Instant dataPedido, Instant dataEntrega, Instant dataEnvio, Integer status,
-			BigDecimal valorTotal, Cliente cliente) {
-		this.idPedido = idPedido;
-		this.dataPedido = dataPedido;
-		this.dataEntrega = dataEntrega;
-		this.dataEnvio = dataEnvio;
-		this.status = status;
-		this.valorTotal = valorTotal;
-		this.cliente = cliente;
-	}
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> itempedido;
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -86,11 +77,11 @@ public class Pedido {
 		this.dataEnvio = dataEnvio;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -108,6 +99,14 @@ public class Pedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<ItemPedido> getItempedido() {
+		return itempedido;
+	}
+
+	public void setItempedido(List<ItemPedido> itempedido) {
+		this.itempedido = itempedido;
 	}
 
 	
