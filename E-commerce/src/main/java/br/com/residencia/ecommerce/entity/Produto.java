@@ -51,7 +51,7 @@ public class Produto {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
-	private List<ItemPedido> itempedido;
+	private List<ItemPedido> itemPedido;
 	
 	
 
@@ -60,12 +60,12 @@ public class Produto {
 		return idProduto;
 	}
 
-	public List<ItemPedido> getItempedido() {
-		return itempedido;
+	public List<ItemPedido> getItemPedido() {
+		return itemPedido;
 	}
 
-	public void setItempedido(List<ItemPedido> itempedido) {
-		this.itempedido = itempedido;
+	public void setItemPedido(List<ItemPedido> itemPedido) {
+		this.itemPedido = itemPedido;
 	}
 
 	public void setIdProduto(Integer idProduto) {

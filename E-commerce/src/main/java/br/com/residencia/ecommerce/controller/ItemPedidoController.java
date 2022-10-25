@@ -34,6 +34,11 @@ public class ItemPedidoController {
 	public ResponseEntity<List<ItemPedidoDTO>> getAllItensProdutosDTO() {
 		return new ResponseEntity<>(itemPedidoService.getAllItensPedidosDTO(), HttpStatus.OK);
 	}
+	//Chamada do método do relatório final
+	@GetMapping("/itens-produtos/dto")
+	public ResponseEntity<List<ItemPedidoDTO>> getAllRelatorioPedidosProdutosDTO() {
+		return new ResponseEntity<>(itemPedidoService.getAllRelatorioPedidosProdutosDTO(), HttpStatus.OK);
+	}
 
 	/*
 	 * @GetMapping("/{id}") public ResponseEntity<ItemPedido>

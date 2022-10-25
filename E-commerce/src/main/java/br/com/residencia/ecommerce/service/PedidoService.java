@@ -88,7 +88,7 @@ public class PedidoService {
 		return getPedidoById(id);
 	}
 
-	private Pedido toEntidade(PedidoDTO pedidoDTO) {
+	public Pedido toEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 		
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
@@ -98,7 +98,7 @@ public class PedidoService {
 		return pedido;
 	}
 
-	private PedidoDTO toDTO(Pedido pedido) {
+	public PedidoDTO toDTO(Pedido pedido) {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 
 		pedidoDTO.setIdPedido(pedido.getIdPedido());

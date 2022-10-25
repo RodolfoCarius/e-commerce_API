@@ -20,6 +20,9 @@ public class ItemPedidoDTO {
 	private List<PedidoDTO> listaPedidoDTO;
 	
 	
+	public ItemPedidoDTO() {	
+	}
+	
 	public Integer getIdItemPedido() {
 		return idItemPedido;
 	}
@@ -82,7 +85,6 @@ public class ItemPedidoDTO {
 	public void setPedidosDTO(PedidoDTO pedidosDTO) {
 		PedidosDTO = pedidosDTO;
 	}
-	
 	*/
 	
 }

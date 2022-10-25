@@ -89,7 +89,7 @@ public class ProdutoService {
 		return getProdutoById(id);
 	}
 
-	private Produto toEntidade(ProdutoDTO produtoDTO) {
+	public Produto toEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 		
 		produto.setIdProduto(produtoDTO.getIdProduto());
@@ -98,7 +98,7 @@ public class ProdutoService {
 		return produto;
 	}
 
-	private ProdutoDTO toDTO(Produto produto) {
+	public ProdutoDTO toDTO(Produto produto) {
 		ProdutoDTO produtoDTO = new ProdutoDTO();
 
 		produtoDTO.setIdProduto(produto.getIdProduto());
